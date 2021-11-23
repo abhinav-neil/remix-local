@@ -16,6 +16,10 @@ contract NFT is ERC721Enumerable, Ownable {
   uint public maxMintAmount = 3;
   uint public maxTokensOfOwner = 10;
   bool public saleIsActive;
+  uint public saleState;        // Sale status, 0 = inactive, 1 = presale, 2 = open for all
+  
+  mapping(address => bool) public isWhitelisted;
+  
   Counters.Counter private _tokenId;
 
   constructor(
@@ -33,10 +37,15 @@ contract NFT is ERC721Enumerable, Ownable {
   function mint(uint _mintAmount) public payable {
     require(saleIsActive, 'Sale is not active');
     require(_mintAmount > 0, 'You must mint at least 1 NFT');
-    require(_mintAmount <= maxMintAmount, 'You cannot mint more than 10 NFTs at a time');
+    require(_mintAmount <= maxMintAmount, 'You cannot mint more than 3 NFTs at a time');
     require(_tokenId.current() + _mintAmount < maxSupply, 'Not enough supply');
-    require(balanceOf(msg.sender) + _mintAmount <= maxTokensOfOwner, 'You cannot have more than 20 NFTs');
+    require(balanceOf(msg.sender) + _mintAmount <= maxTokensOfOwner, 'You cannot have more than 10 NFTs');
     if (msg.sender != owner()) {
+        if(saleState == 1) {
+            require(isWhitelisted[msg.sender], 'Only whitelisted users allowed during presale');
+        }
+        require(_mintAmount <= maxMintAmount, 'You cannot mint more than 10 NFTs at a time');
+        require(balanceOf(msg.sender) + _mintAmount <= maxTokensOfOwner, 'You cannot have more than 20 NFTs');
         require(msg.value >= price * _mintAmount, 'Please send the correct amount of ETH');
     }
     for (uint i = 0; i < _mintAmount; i++) {
@@ -70,8 +79,22 @@ contract NFT is ERC721Enumerable, Ownable {
     baseURI = _newBaseURI;
   }
 
-  function flipSaleState() public onlyOwner {
-    saleIsActive = !saleIsActive;
+  function setSaleState(uint _state) public onlyOwner {
+    saleState = _state;
+  }
+  
+  function whitelist(address[] memory _users) public onlyOwner {
+      for(uint i = 0; i < _users.length; i++) {
+          require(!isWhitelisted[_users[i]], 'already whitelisted');
+          isWhitelisted[_users[i]] = true;
+      }
+  }
+  
+  function unWhitelist(address[] memory _users) public onlyOwner {
+     for(uint i = 0; i < _users.length; i++) {
+          require(isWhitelisted[_users[i]], 'not whitelisted');
+          isWhitelisted[_users[i]] = false;
+     }
   }
  
   function withdraw() public payable onlyOwner {
