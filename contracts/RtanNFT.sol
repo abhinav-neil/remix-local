@@ -4,23 +4,22 @@ pragma solidity ^0.8.7;
 
 import '@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
-import "@openzeppelin/contracts/utils/Counters.sol";
 
 contract NFT is ERC721Enumerable, Ownable {
   using Strings for uint;
-  using Counters for Counters.Counter;
 
   string public baseURI;
   uint public price = 0.02 ether;
-  uint public maxSupply = 10000;
+  uint public maxSupply = 1000;
   uint public maxMintAmount = 3;
+  uint public maxPresaleMintAmount = 1;
   uint public maxTokensOfOwner = 10;
-  bool public saleIsActive;
+  uint public reservedForOwner = 5;
+  uint private _reserveSupply;
+  uint private _publicSupply;
   uint public saleState;        // Sale status, 0 = inactive, 1 = presale, 2 = open for all
   
   mapping(address => bool) public isWhitelisted;
-  
-  Counters.Counter private _tokenId;
 
   constructor(
     string memory _name,
@@ -35,24 +34,35 @@ contract NFT is ERC721Enumerable, Ownable {
   }
 
   function mint(uint _mintAmount) public payable {
-    require(saleIsActive, 'Sale is not active');
-    require(_mintAmount > 0, 'You must mint at least 1 NFT');
-    require(_mintAmount <= maxMintAmount, 'You cannot mint more than 3 NFTs at a time');
-    require(_tokenId.current() + _mintAmount < maxSupply, 'Not enough supply');
-    require(balanceOf(msg.sender) + _mintAmount <= maxTokensOfOwner, 'You cannot have more than 10 NFTs');
+    require(saleState != 0, 'Sale is not active');
+    uint _currentTokenId = reservedForOwner + _publicSupply;
+    require(_mintAmount > 0, "You must mint at least 1 NFT");
+    require(_currentTokenId + _mintAmount <= maxSupply, 'Not enough supply');
     if (msg.sender != owner()) {
+        require(_mintAmount <= maxMintAmount, 'Max amount per mint exceeded');
+        require(balanceOf(msg.sender) + _mintAmount <= maxTokensOfOwner, 'Max token limit per address exceeded');
+        require(msg.value >= price * _mintAmount, 'Please send the correct amount of ETH');
         if(saleState == 1) {
             require(isWhitelisted[msg.sender], 'Only whitelisted users allowed during presale');
+            require(_mintAmount <= maxPresaleMintAmount, 'Max presale mint limit exceeded');
+            isWhitelisted[msg.sender] = false;
         }
-        require(_mintAmount <= maxMintAmount, 'You cannot mint more than 10 NFTs at a time');
-        require(balanceOf(msg.sender) + _mintAmount <= maxTokensOfOwner, 'You cannot have more than 20 NFTs');
-        require(msg.value >= price * _mintAmount, 'Please send the correct amount of ETH');
     }
-    for (uint i = 0; i < _mintAmount; i++) {
-        _tokenId.increment();
-        _safeMint(msg.sender, _tokenId.current());
+    for (uint i = 1; i <= _mintAmount; i++) {
+        _safeMint(msg.sender, _currentTokenId + i);
     }
+    _publicSupply += _mintAmount;
   }
+
+  function mintReserved(uint _mintAmount) public onlyOwner {
+    uint _currentTokenId = _reserveSupply;
+    require(_mintAmount > 0, "You must mint at least 1 NFT");
+    require(_currentTokenId + _mintAmount <= reservedForOwner, 'Exceeds reserved supply');
+    for (uint i = 1; i <= _mintAmount; i++) {
+      _safeMint(msg.sender, _currentTokenId + i);
+    } 
+    _reserveSupply += _mintAmount;
+  } 
 
   function walletOfOwner(address _owner)
     public
@@ -73,6 +83,10 @@ contract NFT is ERC721Enumerable, Ownable {
 
   function setmaxMintAmount(uint _newmaxMintAmount) public onlyOwner() {
     maxMintAmount = _newmaxMintAmount;
+  }
+
+  function setmaxPresaleMintAmount(uint _newmaxPresaleMintAmount) public onlyOwner() {
+    maxPresaleMintAmount = _newmaxPresaleMintAmount;
   }
 
   function setBaseURI(string memory _newBaseURI) public onlyOwner {

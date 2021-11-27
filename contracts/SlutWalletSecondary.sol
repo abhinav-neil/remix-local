@@ -4,16 +4,25 @@ pragma solidity ^0.8.7;
 import '@openzeppelin/contracts/finance/PaymentSplitter.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-contract Wallet is PaymentSplitter, Ownable {
+contract SlutWalletSecondary is PaymentSplitter, Ownable {
     
     string public name;
+    address public ThePimp;
+    address public TheMamaSan;
+    address public TheBodyGuard;
+    address public SlutFund;
 
     constructor (
         string memory _name,
         address[] memory _payees, 
         uint256[] memory _shares) 
         PaymentSplitter(_payees, _shares) payable {
+            require(_payees.length == 4, 'Enter 4 receiver addresses');
             name = _name;
+            ThePimp = _payees[0];
+            TheBodyGuard = _payees[1];
+            TheMamaSan = _payees[2];
+            SlutFund = _payees[3];
         }
         
     function totalBalance() public view returns(uint) {

@@ -21,6 +21,11 @@
 						"internalType": "string",
 						"name": "_initBaseURI",
 						"type": "string"
+					},
+					{
+						"internalType": "address payable",
+						"name": "_wallet",
+						"type": "address"
 					}
 				],
 				"stateMutability": "nonpayable",
@@ -235,19 +240,6 @@
 			{
 				"inputs": [],
 				"name": "maxMintAmount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "maxPresaleMintAmount",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -487,11 +479,11 @@
 				"inputs": [
 					{
 						"internalType": "uint256",
-						"name": "_newPrice",
+						"name": "_newMaxMintAmount",
 						"type": "uint256"
 					}
 				],
-				"name": "setPrice",
+				"name": "setMaxMintAmount",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -505,32 +497,6 @@
 					}
 				],
 				"name": "setSaleState",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_newmaxMintAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "setmaxMintAmount",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
-						"internalType": "uint256",
-						"name": "_newmaxPresaleMintAmount",
-						"type": "uint256"
-					}
-				],
-				"name": "setmaxPresaleMintAmount",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -722,13 +688,6 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "withdraw",
-				"outputs": [],
-				"stateMutability": "payable",
-				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -802,7 +761,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/RtanNFT.sol": "NFT"
+			"contracts/Pixaliens.sol": "Pixaliens"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -912,12 +871,12 @@
 				"dweb:/ipfs/QmZeBojmgXq821dL1TJKFb58B1FogM9jL3u7hXQ8hTEBKT"
 			]
 		},
-		"contracts/RtanNFT.sol": {
-			"keccak256": "0x4a7020116bfea6d6b343f4617f9a90ffddeefd85cecfcda543fd39f063a919d9",
+		"contracts/Pixaliens.sol": {
+			"keccak256": "0x6f25722741cda3ce9c963e1d051aba940ef9a4387432a626f2c2550a817da081",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b418bf2145785f78d40fda9c82c32c408be9663f27332a4b3655be008ce2693a",
-				"dweb:/ipfs/QmQk5DG8h5sCfwRH5aiafuuL3tr7wkCBwbypTVgPihW6KZ"
+				"bzz-raw://021f2d698c2c281263e7ac02196f399ffeb291f46ef1552a5945f94f72333960",
+				"dweb:/ipfs/QmRNn4nBkx8EqVj3ZAYpfHH929nqwnqHsbfRQLbPEPtvVH"
 			]
 		}
 	},

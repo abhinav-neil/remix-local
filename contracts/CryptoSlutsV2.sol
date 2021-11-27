@@ -19,15 +19,6 @@ contract CryptoSlutsV2 is ERC721Enumerable, Ownable {
   string public hiddenURI;
   bool public revealed;
   mapping(address => bool) public isWhitelisted;
-  //airdrop
-//   struct Airdrop {
-//       bool _state;
-//       uint _startingTokenId;
-//       uint _maxSupply;
-//       uint _price;
-//       mapping(address => bool) isWhitelistedForAirdrop;
-//   }
-//   bool public airdropIsActive;
 
   constructor(
     address payable _primaryWallet,
@@ -148,36 +139,10 @@ contract CryptoSlutsV2 is ERC721Enumerable, Ownable {
           isWhitelisted[_users[i]] = false;
      }
   }
-  
-  //airdrop
-//   function whitelistForAirdrop(address[] memory _users) public onlyOwner {
-//       for(uint i = 0; i < _users.length; i++) {
-//           require(!isWhitelistedForAirdrop[_users[i]], 'already whitelisted');
-//           isWhitelistedForAirdrop[_users[i]] = true;
-//       }
-//   }
-  
-//   function startAirdrop(uint _startingTokenId, uint _maxSupply, uint _price) public onlyOwner {
-//       Airdrop storage airdrop = new Airdrop(true, _startingTokenId, _maxSupply, _price);
-//   }
-
+ 
   function claimAirdrop(address _user, uint _tokenId) external {
     require(msg.sender == airdropExec, 'not authorized');
-    // require(airdropIsActive, 'Airdrop is not active');
-    // require(isWhitelistedForAirdrop[msg.sender], 'You are not listed for airdrops');
-    // require(airdropTokenId <= maxAirdropTokenId, 'Airdrop has ended');
     _safeMint(_user, _tokenId);
-    // airdropTokenId++;
-    // isWhitelistedForAirdrop[msg.sender] = false;
   }
-  
-//   function setAirdropId(uint _startingTokenId, uint _maxTokenId) public onlyOwner {
-//       airdropTokenId = _startingTokenId;
-//       maxAirdropTokenId = _maxTokenId;
-//   }
-    
-//   function flipAirdropState() public onlyOwner {
-//     airdropIsActive = !airdropIsActive;
-//   }
-  
+
 }
