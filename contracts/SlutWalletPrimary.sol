@@ -4,7 +4,7 @@ pragma solidity ^0.8.7;
 import '@openzeppelin/contracts/finance/PaymentSplitter.sol';
 import '@openzeppelin/contracts/access/Ownable.sol';
 
-contract Wallet is PaymentSplitter, Ownable {
+contract SlutWalletPrimary is PaymentSplitter, Ownable {
     
     string public name;
     address public ThePimp;

@@ -6,28 +6,7 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [
-					{
-						"internalType": "string",
-						"name": "_name",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_symbol",
-						"type": "string"
-					},
-					{
-						"internalType": "string",
-						"name": "_initBaseURI",
-						"type": "string"
-					},
-					{
-						"internalType": "address payable",
-						"name": "_wallet",
-						"type": "address"
-					}
-				],
+				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
 			},
@@ -164,6 +143,19 @@
 			},
 			{
 				"inputs": [],
+				"name": "baseExtension",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
 				"name": "baseURI",
 				"outputs": [
 					{
@@ -192,6 +184,24 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_to",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_mintAmount",
+						"type": "uint256"
+					}
+				],
+				"name": "gift",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -239,33 +249,7 @@
 			},
 			{
 				"inputs": [],
-				"name": "maxMintAmount",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "maxSupply",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
-				"name": "maxTokensOfOwner",
+				"name": "maxTotalSupply",
 				"outputs": [
 					{
 						"internalType": "uint256",
@@ -284,27 +268,27 @@
 						"type": "uint256"
 					}
 				],
-				"name": "mint",
+				"name": "mintBolt",
 				"outputs": [],
 				"stateMutability": "payable",
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "name",
+				"outputs": [
 					{
-						"internalType": "uint256",
-						"name": "_mintAmount",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "",
+						"type": "string"
 					}
 				],
-				"name": "mintReserved",
-				"outputs": [],
-				"stateMutability": "nonpayable",
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
 				"inputs": [],
-				"name": "name",
+				"name": "notRevealedURI",
 				"outputs": [
 					{
 						"internalType": "string",
@@ -349,19 +333,6 @@
 			},
 			{
 				"inputs": [],
-				"name": "price",
-				"outputs": [
-					{
-						"internalType": "uint256",
-						"name": "",
-						"type": "uint256"
-					}
-				],
-				"stateMutability": "view",
-				"type": "function"
-			},
-			{
-				"inputs": [],
 				"name": "renounceOwnership",
 				"outputs": [],
 				"stateMutability": "nonpayable",
@@ -369,12 +340,12 @@
 			},
 			{
 				"inputs": [],
-				"name": "reservedForOwner",
+				"name": "revealed",
 				"outputs": [
 					{
-						"internalType": "uint256",
+						"internalType": "bool",
 						"name": "",
-						"type": "uint256"
+						"type": "bool"
 					}
 				],
 				"stateMutability": "view",
@@ -433,11 +404,26 @@
 			},
 			{
 				"inputs": [],
-				"name": "saleState",
+				"name": "sale",
 				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "",
+						"name": "state",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxSupply",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "maxTokensPerAddress",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "price",
 						"type": "uint256"
 					}
 				],
@@ -466,6 +452,19 @@
 				"inputs": [
 					{
 						"internalType": "string",
+						"name": "_newBaseExtension",
+						"type": "string"
+					}
+				],
+				"name": "setBaseExtension",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
 						"name": "_newBaseURI",
 						"type": "string"
 					}
@@ -478,12 +477,25 @@
 			{
 				"inputs": [
 					{
-						"internalType": "uint256",
-						"name": "_newMaxMintAmount",
-						"type": "uint256"
+						"internalType": "string",
+						"name": "_notRevealedURI",
+						"type": "string"
 					}
 				],
-				"name": "setMaxMintAmount",
+				"name": "setNotRevealedURI",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bool",
+						"name": "_revealed",
+						"type": "bool"
+					}
+				],
+				"name": "setRevealed",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -494,9 +506,24 @@
 						"internalType": "uint256",
 						"name": "_state",
 						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maxSupply",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_maxTokensPerAddress",
+						"type": "uint256"
+					},
+					{
+						"internalType": "uint256",
+						"name": "_price",
+						"type": "uint256"
 					}
 				],
-				"name": "setSaleState",
+				"name": "setSaleDetails",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -688,6 +715,13 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "withdraw",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -761,7 +795,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/Pixaliens.sol": "Pixaliens"
+			"contracts/MaxBoltSociety.sol": "MaxBoltSociety"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -847,6 +881,14 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
 		"@openzeppelin/contracts/utils/Strings.sol": {
 			"keccak256": "0x32c202bd28995dd20c4347b7c6467a6d3241c74c8ad3edcbb610cd9205916c45",
 			"license": "MIT",
@@ -871,12 +913,12 @@
 				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
 			]
 		},
-		"contracts/Pixaliens.sol": {
-			"keccak256": "0x6f25722741cda3ce9c963e1d051aba940ef9a4387432a626f2c2550a817da081",
+		"contracts/MaxBoltSociety.sol": {
+			"keccak256": "0x0b85d354b00016564ff2bb06a5a52e1833368ace56907ef85eb008a48b7d2e52",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://021f2d698c2c281263e7ac02196f399ffeb291f46ef1552a5945f94f72333960",
-				"dweb:/ipfs/QmRNn4nBkx8EqVj3ZAYpfHH929nqwnqHsbfRQLbPEPtvVH"
+				"bzz-raw://b8ad09ebbbeb3ff957363ce843c206f0812f4ff44dc98ff9498fc6477334f8a0",
+				"dweb:/ipfs/QmNi2mgmZd3fNYhiYGxULTzimJmVCfRQXeH99XxrdSHuSC"
 			]
 		}
 	},

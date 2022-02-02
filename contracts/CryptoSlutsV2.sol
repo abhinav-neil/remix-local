@@ -10,7 +10,7 @@ contract CryptoSlutsV2 is ERC721Enumerable, Ownable {
   address private primaryWallet;
   address public airdropExec;
   string public baseURI;
-  string public baseExtension = '.json';
+  string public baseExtension;
   uint public startingIndex = 560; // reserve 100 for gang, 9 for founders, 150 + 150 + 150 for airdrops
   uint public maxSupply = 10000;
   uint public maxMintAmount = 10;
