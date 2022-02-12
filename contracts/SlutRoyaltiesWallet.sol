@@ -5,18 +5,15 @@ pragma solidity ^0.8.11;
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 
-contract EARoyaltiesWallet is PaymentSplitter, Ownable {
+contract SlutRoyaltiesWallet is PaymentSplitter, Ownable {
     
-    string public name = "EA Royalties Wallet";
-    uint[] private _shares = [25, 25, 25, 25, 25, 25, 50];
+    string public name = "Slut Royalties Wallet";
+    uint[] private _shares = [2, 1, 2, 1];
     address[] private _team = [
-        0xF16A786004F2E763b3e754c2245105f1e7AcA767,
-        0x58B029B606D1d1311680813cCe39c4770f2f241C,
-        0x7eDE5189FffC950f5A692B22C0311479D9B1bcF0,
-        0xE139e34C1714a93701b7BCB2F7C0D174cdc1E2C6,
-        0x0502EF00b5194d6899d96d027B0fb27A195F96b3,
-        0xDA7d1A4C705B257ca18b8e820bff31b8a8CecD79,
-        0xC4b8aa60b802F17dFA6BD8ef821365Ed1c3F9BbF
+        0x60D406B91cDb2EC8491c18deAc5E2db11a635c82,
+        0x2EfC57Cc412F66545F648F10Df85EDf8647d58f6,
+        0xD30f5587aB758241263A2Eb63B8C281083ff99F0,
+        0xd577E026B4B9901ABEf9d28701C6d469F9F97413
     ];
 
     constructor () PaymentSplitter(_team, _shares) payable {}

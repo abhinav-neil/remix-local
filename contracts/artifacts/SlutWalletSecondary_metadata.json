@@ -6,7 +6,23 @@
 	"output": {
 		"abi": [
 			{
-				"inputs": [],
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_name",
+						"type": "string"
+					},
+					{
+						"internalType": "address[]",
+						"name": "_payees",
+						"type": "address[]"
+					},
+					{
+						"internalType": "uint256[]",
+						"name": "_shares",
+						"type": "uint256[]"
+					}
+				],
 				"stateMutability": "payable",
 				"type": "constructor"
 			},
@@ -110,6 +126,58 @@
 				],
 				"name": "PaymentReleased",
 				"type": "event"
+			},
+			{
+				"inputs": [],
+				"name": "SlutFund",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "TheBodyGuard",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "TheMamaSan",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "ThePimp",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
 			},
 			{
 				"inputs": [
@@ -421,7 +489,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/ToonzRoyaltiesWallet.sol": "ToonzRoyaltiesWallet"
+			"contracts/SlutWalletSecondary.sol": "SlutWalletSecondary"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -452,11 +520,11 @@
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/IERC20.sol": {
-			"keccak256": "0xbbc8ac883ac3c0078ce5ad3e288fbb3ffcc8a30c3a98c0fda0114d64fc44fca2",
+			"keccak256": "0x61437cb513a887a1bbad006e7b1c8b414478427d33de47c5600af3c748f108da",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://87a7a5d2f6f63f84598af02b8c50ca2df2631cb8ba2453e8d95fcb17e4be9824",
-				"dweb:/ipfs/QmR76hqtAcRqoFj33tmNjcWTLrgNsAaakYwnKZ8zoJtKei"
+				"bzz-raw://2c3d0973630ed74f2b5ce3944677a885dc70ec32fc83b35f55045a10224da32b",
+				"dweb:/ipfs/QmbefZ5RoEZKNHXCALfh683PnaNYzKPcKMFjyY1DVAgq8A"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol": {
@@ -468,11 +536,11 @@
 			]
 		},
 		"@openzeppelin/contracts/utils/Address.sol": {
-			"keccak256": "0x2ccf9d2313a313d41a791505f2b5abfdc62191b5d4334f7f7a82691c088a1c87",
+			"keccak256": "0x51b758a8815ecc9596c66c37d56b1d33883a444631a3f916b9fe65cb863ef7c4",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://b3a57d0854b2fdce6ebff933a48dca2445643d1eccfc27f00292e937f26c6a58",
-				"dweb:/ipfs/QmW45rZooS9TqR4YXUbjRbtf2Bpb5ouSarBvfW1LdGprvV"
+				"bzz-raw://997ca03557985b3c6f9143a18b6c3a710b3bc1c7f189ee956d305a966ecfb922",
+				"dweb:/ipfs/QmQaD3Wb62F88SHqmpLttvF6wKuPDQep2LLUcKPekeRzvz"
 			]
 		},
 		"@openzeppelin/contracts/utils/Context.sol": {
@@ -483,12 +551,12 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/ToonzRoyaltiesWallet.sol": {
-			"keccak256": "0x0f3257e3293941612463672daee66956d4504f3850b5023b239e6326a2033132",
-			"license": "MIT",
+		"contracts/SlutWalletSecondary.sol": {
+			"keccak256": "0xf5eac5c30ec74990a73d441d85cfc6ddfdc076f7b025f13bc34a0ce74a679063",
+			"license": "GPL-3.0",
 			"urls": [
-				"bzz-raw://11f193c0831f01cf35675b18564faea5e02e464a73194a692161576b6b39765a",
-				"dweb:/ipfs/QmbUrrGBeq96UtnRVFBMeEm1UELDyyy4xcb21gLS5ed1qY"
+				"bzz-raw://86b94bbdaadaf2441da4aae38981f14cc6f7f5f3ad9b898eda2b1141890cc257",
+				"dweb:/ipfs/QmNpSnYSxyXYFkeT1y9v1ihCY4at2Sif7tNkiZzGk7SNxx"
 			]
 		}
 	},

@@ -10,9 +10,9 @@ contract ToonzRoyaltiesWallet is PaymentSplitter, Ownable {
     string public name = "Toonz Royalties Wallet";
     uint[] private _shares = [60, 20, 20];
     address[] private _payees = [
-        0x3898916E006aD1bb9dD739a789032Bd3CD27E992,
-        0x7E4eFb7000285fD19Aaab081D0938cAad6D63248,
-        0x6e041991037b7e2ec3B157442441a2f3354a008B
+        0x034bE3074FF759d0167ddf404Db149d954dCdCEe,
+        0xd9fA4Ab0143A7027AEFE148707F5913cBf3aA5d2,
+        0x3aB4085EA8255c22f7670Ad2a278BfA5bF29642F
     ];
 
     constructor () PaymentSplitter(_payees, _shares) payable {}

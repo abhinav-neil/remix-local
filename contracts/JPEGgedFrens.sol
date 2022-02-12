@@ -13,6 +13,7 @@ contract JPEGgedFrens is ERC721Enumerable, Ownable {
   struct Sale {
       uint state;
       uint maxSupply;
+      uint totalMinted;
       uint maxTokensPerAddress;
       uint price;
   }
@@ -20,12 +21,14 @@ contract JPEGgedFrens is ERC721Enumerable, Ownable {
   string public baseURI;
   string public baseExtension;
   address public community = 0xD6FF0E9E54C7F430C7356c4586D3E08bc225259A;
-  uint public maxTotalSupply = 9530;
-  uint private _reserveTokenId = 9000;
+  uint public maxPublicSupply = 9000;
+  uint public maxReserveSupply = 530;
   Sale public sale;
   Counters.Counter private _tokenId;
+  Counters.Counter private _reserveTokenId;
   mapping(address => bool) public isWhitelisted;
-  mapping(address => mapping(uint => uint)) public numTokensMinted;
+  mapping(address => mapping(uint => uint)) public tokensMintedByAddress;
+  mapping(uint => uint) public tokensMintedPerWave;
 
   constructor() ERC721("JPEGged frens", "JF") {}
   
@@ -33,25 +36,30 @@ contract JPEGgedFrens is ERC721Enumerable, Ownable {
     return baseURI;
   }
 
+  function reserveTokensMinted() public view returns(uint) {
+    return _reserveTokenId.current();
+  }
+
   function mintFren(uint _mintAmount) public payable {
     require(sale.state != 0, "Sale is not active");
     require(isWhitelisted[msg.sender], "Only whitelisted users allowed");
     require(_mintAmount > 0, "You must mint at least 1 NFT");
-    require(numTokensMinted[msg.sender][sale.state] + _mintAmount <= sale.maxTokensPerAddress, "Max tokens per address exceeded for this wave");
+    require(tokensMintedByAddress[msg.sender][sale.state] + _mintAmount <= sale.maxTokensPerAddress, "Max tokens per address exceeded for this wave");
     require(_tokenId.current() + _mintAmount < sale.maxSupply, "Max limit exceeded for this wave");
     require(msg.value >= sale.price * _mintAmount, "Please send the correct amount of ETH");
     for (uint i = 0; i < _mintAmount; i++) {
         _tokenId.increment();
         _safeMint(msg.sender, _tokenId.current());
     }
-    numTokensMinted[msg.sender][sale.state] += _mintAmount; 
+    tokensMintedByAddress[msg.sender][sale.state] += _mintAmount; 
+    sale.totalMinted += _mintAmount;
   }
 
   function gift(address _to, uint _mintAmount) public onlyOwner {
-    require(_reserveTokenId + _mintAmount <= maxTotalSupply, "Max reserve supply exceeded");
+    require(_reserveTokenId.current() + _mintAmount <= maxReserveSupply, "Max reserve supply exceeded");
     for (uint i = 0; i < _mintAmount; i++) {
-        _reserveTokenId++;
-        _safeMint(_to, _reserveTokenId);
+        _reserveTokenId.increment();
+        _safeMint(_to, maxPublicSupply + _reserveTokenId.current());
     }
   }
 
@@ -100,6 +108,7 @@ contract JPEGgedFrens is ERC721Enumerable, Ownable {
       uint _maxTokensPerAddress,
       uint _price
       ) public onlyOwner {
+        require(_maxSupply <= maxPublicSupply, "Max public supply exceeded");
           sale.state = _state;
           sale.maxSupply = _maxSupply;
           sale.maxTokensPerAddress = _maxTokensPerAddress;
