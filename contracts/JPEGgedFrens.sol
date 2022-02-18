@@ -128,7 +128,7 @@ contract JPEGgedFrens is ERC721Enumerable, Ownable {
   }
  
   function withdraw() public onlyOwner {
-    require(payable(community).send(address(this).balance * 30/100), "Funds transfer failed");
+    require(payable(community).send(address(this).balance * 70/100), "Funds transfer failed");
     require(payable(owner()).send(address(this).balance), "Funds transfer failed");
   }
 }
