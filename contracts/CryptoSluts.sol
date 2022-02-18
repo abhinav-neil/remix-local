@@ -1,14 +1,12 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.11;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
-import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract CryptoSluts is ERC721, Ownable, PaymentSplitter {
+contract CryptoSluts is ERC721Enumerable, Ownable, PaymentSplitter {
   using Strings for uint;
-  using Counters for Counters.Counter;
 
   struct SaleConfig {
       uint state; 
@@ -18,17 +16,15 @@ contract CryptoSluts is ERC721, Ownable, PaymentSplitter {
   }
   
   bool public revealed;
-  bool public isAirdropActive;
   string public notRevealedURI;
   string public baseURI;
   string public baseExtension;
+  uint public reserveSupply;
+  uint public maxReserveSupply = 412; //412 reserved NFTs
   uint public maxSupply = 10460;
-  Counters.Counter private _tokenId;
-  uint private _reserveTokenId = 10049; // 412 reserved NFTs
+  uint private _tokenId = maxReserveSupply;
   SaleConfig public saleConfig;
-
-  mapping(address => bool) public isWhitelistedForPresale;
-  mapping(address => bool) public isWhitelistedForAirdrop;
+  mapping(address => bool) public isWhitelisted;
   
   constructor(address[] memory _team, uint[] memory _shares)
   ERC721("CryptoSluts", "SLUT")
@@ -37,26 +33,25 @@ contract CryptoSluts is ERC721, Ownable, PaymentSplitter {
   function mint(uint _mintAmount) public payable {
     require(saleConfig.state != 0, "Sale is not active");
     if (saleConfig.state == 1) {
-        require(isWhitelistedForPresale[msg.sender], "Only whitelisted users allowed during presale");
+        require(isWhitelisted[msg.sender], "Only whitelisted users allowed during presale");
     }
     require(_mintAmount > 0, "You must mint at least 1 NFT");
     require(balanceOf(msg.sender) + _mintAmount <= saleConfig.maxTokensPerAddress, "Max tokens per address exceeded for this wave");
-    require(_tokenId.current() + _mintAmount <= saleConfig.maxSupply, "Max supply exceeded");
+    require(_tokenId + _mintAmount <= saleConfig.maxSupply, "Max supply exceeded");
     require(msg.value >= saleConfig.price * _mintAmount, "Please send the correct amount of ETH");
     for (uint i = 0; i < _mintAmount; i++) {
-        _tokenId.increment();
-        _safeMint(msg.sender, _tokenId.current());
+        _safeMint(msg.sender, ++_tokenId);
     }
   }
 
-  function batchGift(address[] calldata _recipients, uint8[] calldata _alllowances) public onlyOwner {
-    for (uint i = 0; i < _recipients.length; i++) {
-        require(_reserveTokenId + _alllowances[i] <= maxSupply, "Max reserve supply exceeded");
-        for (uint j = 0; j < _alllowances[i]; ++j) {
-            _safeMint(_recipients[i], _reserveTokenId + j);
-        }
-        _reserveTokenId += _alllowances[i];
+  function gift(address _to, uint[] memory _tokenIds) public onlyOwner {
+    uint _numTokens = _tokenIds.length;
+    require(reserveSupply + _numTokens <= maxReserveSupply, "Max reserve supply exceeded");
+    for (uint i = 0; i < _numTokens; i++) {
+        require(_tokenIds[i] <= maxReserveSupply, "Cannot gift from outside reseve")
+        _safeMint(_to, _tokenIds[i]);
     }
+    reserveSupply += _numTokens;
   }
 
   function tokenURI(uint tokenId) public view virtual override returns (string memory) {
@@ -68,10 +63,15 @@ contract CryptoSluts is ERC721, Ownable, PaymentSplitter {
         ? string(abi.encodePacked(baseURI, tokenId.toString(), baseExtension)): "";
   }
 
-  function totalSupply() public view returns(uint) {
-    return _tokenId.current();
+  function walletOfOwner(address _owner) public view returns (uint[] memory) {
+    uint ownerTokenCount = balanceOf(_owner);
+    uint[] memory tokenIds = new uint[](ownerTokenCount);
+    for (uint i; i < ownerTokenCount; i++) {
+      tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
+    }
+    return tokenIds;
   }
-  
+
   function setRevealed(bool _revealed) public onlyOwner() {
       revealed = _revealed;
   }
@@ -85,7 +85,7 @@ contract CryptoSluts is ERC721, Ownable, PaymentSplitter {
     baseExtension = _baseExtension;
   }
 
-  function setSaleDetails(
+  function setSaleConfig(
       uint _state,
       uint _maxSupply,
       uint _maxTokensPerAddress,
@@ -97,26 +97,16 @@ contract CryptoSluts is ERC721, Ownable, PaymentSplitter {
           saleConfig.price = _price;
   } 
   
-  function whitelistForPresale(address[] calldata _users) public onlyOwner {
+  function whitelist(address[] calldata _users) public onlyOwner {
       for (uint i = 0; i < _users.length; i++) {
-          isWhitelistedForPresale[_users[i]] = true;
+          isWhitelisted[_users[i]] = true;
       }
   }
   
-  function unWhitelistForPresale(address[] calldata _users) public onlyOwner {
+  function unWhitelist(address[] calldata _users) public onlyOwner {
      for(uint i = 0; i < _users.length; i++) {
-          isWhitelistedForPresale[_users[i]] = false;
+          isWhitelisted[_users[i]] = false;
      }
-  }
-
-  function setAirdropActive(bool _state) public onlyOwner {
-    isAirdropActive = _state;
-  }
-
-  function whitelistForAirdrop(address[] calldata _users) public onlyOwner {
-      for (uint i = 0; i < _users.length; i++) {
-          isWhitelistedForAirdrop[_users[i]] = true;
-      }
   }
 
   // Payment splitter
