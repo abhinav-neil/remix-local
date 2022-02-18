@@ -8,11 +8,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "string",
-						"name": "_name",
-						"type": "string"
-					},
-					{
 						"internalType": "address[]",
 						"name": "_payees",
 						"type": "address[]"
@@ -437,7 +432,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SlutRoyaltiesWallet.sol": "RoyaltiesWallet"
+			"contracts/SlutRoyaltiesWallet.sol": "SlutRoyaltiesWallet"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -445,7 +440,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -500,11 +495,11 @@
 			]
 		},
 		"contracts/SlutRoyaltiesWallet.sol": {
-			"keccak256": "0x35b6ae0c4114975ce80c13b89bab0e36a6995d5a957fa4ecdcdafd31263db3d5",
+			"keccak256": "0xe4831e2d8aee97c6b6ea6b550eb0b92dc170413949b3fca0211974453c1a02fd",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://07b976d225178334a787682c0538140c46bbc5ec155bdb30892e3d7a23c5880c",
-				"dweb:/ipfs/QmW8U4967m51HFFcGd3in44ZcVAgfQeLzQUESv3gCKQCgh"
+				"bzz-raw://990526314f03cebdc3fe6de452ecc64dbd64cd5b8795f8b6df05d320c4e7d336",
+				"dweb:/ipfs/Qmbw6w2bjtvY8xrqwhbNrWBL6hfZT5W7AXmXyGGpQw43cp"
 			]
 		}
 	},
