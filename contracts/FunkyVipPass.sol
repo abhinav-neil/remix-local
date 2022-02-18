@@ -2,12 +2,12 @@
 
 pragma solidity ^0.8.11;
 
-import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
+import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract FunkyVipPass is ERC721Enumerable, Ownable, PaymentSplitter {
+contract FunkyVipPass is ERC721, Ownable, PaymentSplitter {
   using Strings for uint;
   using Counters for Counters.Counter;
 
@@ -15,9 +15,10 @@ contract FunkyVipPass is ERC721Enumerable, Ownable, PaymentSplitter {
   string public baseURI;
   string public baseExtension;
   uint public price = 0.08 ether;
-  uint public maxPublicSupply = 450;
   uint public maxSupply = 500;
-  uint public _reserveTokenId = maxPublicSupply;
+  uint public maxReserveSupply = 50;
+  uint public publicSupply;
+  uint public reserveSupply;
   Counters.Counter private _tokenId;
 
   constructor(address[] memory _payees, uint[] memory _shares) 
@@ -26,18 +27,22 @@ contract FunkyVipPass is ERC721Enumerable, Ownable, PaymentSplitter {
 
   function mintPass() public payable {
     require(saleIsActive, "Sale is not active");
-    require(_tokenId.current() <= maxPublicSupply, "Sold out");
+    require(publicSupply <= maxSupply - maxReserveSupply, "Sold out");
     require(balanceOf(msg.sender) == 0, "Max 1 pass per address");
     require(msg.value >= price, "Please send the correct amount of ETH");
     _tokenId.increment();
     _safeMint(msg.sender, _tokenId.current());
+    publicSupply++;
   }
 
-  function gift(address _to, uint _mintAmount) public onlyOwner {
-    require(_reserveTokenId + _mintAmount <= maxSupply, "Max reserve supply exceeded");
-    for (uint i = 0; i < _mintAmount; i++) {
-      _reserveTokenId++;
-      _safeMint(_to, _reserveTokenId);
+  function batchGift(address[] calldata _recipients, uint8[] calldata _alllowances) public onlyOwner {
+    for (uint i = 0; i < _recipients.length; i++) {
+      require(reserveSupply + _alllowances[i] <= maxReserveSupply, "Max reserve supply exceeded");
+      for (uint j = 0; j < _alllowances[i]; j++) {
+          _tokenId.increment();
+          _safeMint(_recipients[i], _tokenId.current());
+      }
+      reserveSupply += _alllowances[i];
     }
   }
 
@@ -45,15 +50,6 @@ contract FunkyVipPass is ERC721Enumerable, Ownable, PaymentSplitter {
     require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
     return bytes(baseURI).length > 0
         ? string(abi.encodePacked(baseURI, tokenId.toString(), baseExtension)): "";
-  }
-
-  function walletOfOwner(address _owner) public view returns (uint[] memory) {
-    uint ownerTokenCount = balanceOf(_owner);
-    uint[] memory tokenIds = new uint[](ownerTokenCount);
-    for (uint i; i < ownerTokenCount; i++) {
-      tokenIds[i] = tokenOfOwnerByIndex(_owner, i);
-    }
-    return tokenIds;
   }
 
   function setPrice(uint _newPrice) public onlyOwner() {
