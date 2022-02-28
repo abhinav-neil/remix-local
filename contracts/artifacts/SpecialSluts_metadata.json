@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.11+commit.d7f03943"
+		"version": "0.8.12+commit.f00d7308"
 	},
 	"language": "Solidity",
 	"output": {
@@ -953,6 +953,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					}
+				],
+				"name": "walletOfOwner",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address[]",
 						"name": "_users",
 						"type": "address[]"
@@ -1073,7 +1092,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"localhost/contracts/SpecialSluts.sol": "SpecialSluts"
+			"contracts/SpecialSluts.sol": "SpecialSluts"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -1082,7 +1101,7 @@
 		},
 		"optimizer": {
 			"enabled": true,
-			"runs": 200
+			"runs": 1000
 		},
 		"remappings": []
 	},
@@ -1215,12 +1234,12 @@
 				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
 			]
 		},
-		"localhost/contracts/SpecialSluts.sol": {
-			"keccak256": "0x159734cd06af965f8e454c2f178d1665cfc2e34784285e1ad25ad4334121433e",
+		"contracts/SpecialSluts.sol": {
+			"keccak256": "0xf3dcd32a44bc5122285c15f9f87cbdf87bf76dd2fbef651f36316a670888c0ce",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://d0e3c51fdac4d0e836bbf45e4886d35431bf73ddf5bd1ecad7d36389a0a9cb5b",
-				"dweb:/ipfs/QmRYtmKsLFSaU7ehnB3HnEioafT368x35EaqxmZ7R29ZMy"
+				"bzz-raw://49ec9848a437123150ff5b2469549eeb25c8c611101c1c96eb4f363b3e0fec0d",
+				"dweb:/ipfs/QmZiACcCSRCHhUwCq5RrT1XvNLSQQGaiT7KYxSLbMbxMnt"
 			]
 		}
 	},

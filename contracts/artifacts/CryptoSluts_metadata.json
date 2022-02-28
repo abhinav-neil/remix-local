@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.11+commit.d7f03943"
+		"version": "0.8.12+commit.f00d7308"
 	},
 	"language": "Solidity",
 	"output": {
@@ -974,6 +974,25 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address",
+						"name": "_owner",
+						"type": "address"
+					}
+				],
+				"name": "walletOfOwner",
+				"outputs": [
+					{
+						"internalType": "uint256[]",
+						"name": "",
+						"type": "uint256[]"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address[]",
 						"name": "_users",
 						"type": "address[]"
@@ -1102,7 +1121,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": true,
+			"enabled": false,
 			"runs": 200
 		},
 		"remappings": []
@@ -1229,11 +1248,11 @@
 			]
 		},
 		"contracts/CryptoSluts.sol": {
-			"keccak256": "0xd9c8442739fc31b13c06f8627a7649adbb3ccf5d28b59ee0ae25d9c9e6e9ea87",
+			"keccak256": "0xa45e158fcd533bc6724b21bc61e0cf3fbcc39ffca484c68adcae32ce72ed586c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://51d3e10c137efeb009b8005567ee776e19bb0cb50956257ae68d39eee817aa1a",
-				"dweb:/ipfs/QmVZTbCUsgzTc99yXsq125FYxqANbfdFzjyUWujVTFdqvZ"
+				"bzz-raw://d60e68e79db0fb9e1d153033429543d88a1d90f4371a25cca49aad1d84ad94b2",
+				"dweb:/ipfs/Qmc4iCkwdmMyQ1dZDhZBiqzgca1LgxZijCX6yzCmkuQzE8"
 			]
 		}
 	},

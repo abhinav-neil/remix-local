@@ -263,24 +263,6 @@
 			{
 				"inputs": [
 					{
-						"internalType": "address[]",
-						"name": "_recipients",
-						"type": "address[]"
-					},
-					{
-						"internalType": "uint8[]",
-						"name": "_alllowances",
-						"type": "uint8[]"
-					}
-				],
-				"name": "batchGift",
-				"outputs": [],
-				"stateMutability": "nonpayable",
-				"type": "function"
-			},
-			{
-				"inputs": [
-					{
 						"internalType": "address",
 						"name": "_account",
 						"type": "address"
@@ -321,6 +303,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address[]",
+						"name": "_recipients",
+						"type": "address[]"
+					}
+				],
+				"name": "giftPass",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -937,7 +932,7 @@
 			"bytecodeHash": "ipfs"
 		},
 		"optimizer": {
-			"enabled": false,
+			"enabled": true,
 			"runs": 200
 		},
 		"remappings": []
@@ -1056,11 +1051,11 @@
 			]
 		},
 		"contracts/FunkyVipPass.sol": {
-			"keccak256": "0x11c21927f86ed74ccae41a2fbbb50d9d0b562f75ab3e7ea4f0387208c70f9e42",
+			"keccak256": "0x73edd07778d3f4666d526e6e463a30c149262ff4b8a9f28c0970e68275b22dd2",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://c9d78ef9aafcab5d7d838bdee26665e577e3c75be8622d039e1d52bf5b73c980",
-				"dweb:/ipfs/QmSFPaY8TcEBrEp7LSdTrrVjbEJcXqmyxjx8KAK8frT6Hm"
+				"bzz-raw://668f80d3e882214ea562770498cb2d2f6e22a395abd0b02632d293958509fdd8",
+				"dweb:/ipfs/QmRPuQw3oVsdtEGw54TJdJfD15brfsGKZJFD1zyGvSKhx1"
 			]
 		}
 	},

@@ -35,15 +35,15 @@ contract FunkyVipPass is ERC721, Ownable, PaymentSplitter {
     publicSupply++;
   }
 
-  function batchGift(address[] calldata _recipients, uint8[] calldata _alllowances) public onlyOwner {
-    for (uint i = 0; i < _recipients.length; i++) {
-      require(reserveSupply + _alllowances[i] <= maxReserveSupply, "Max reserve supply exceeded");
-      for (uint j = 0; j < _alllowances[i]; j++) {
-          _tokenId.increment();
-          _safeMint(_recipients[i], _tokenId.current());
-      }
-      reserveSupply += _alllowances[i];
+  function giftPass(address[] calldata _recipients) public onlyOwner {
+    uint _numTokens = _recipients.length;
+    require(reserveSupply + _numTokens <= maxReserveSupply, "Max reserve supply exceeded");
+    for (uint i = 0; i < _numTokens; i++) {
+      require(balanceOf(_recipients[i]) == 0, "Max 1 pass per address"); // optional, remove to gift >1 pass for an address
+      _tokenId.increment();
+      _safeMint(_recipients[i], _tokenId.current());
     }
+    reserveSupply += _numTokens;
   }
 
   function tokenURI(uint tokenId) public view virtual override returns (string memory) {
