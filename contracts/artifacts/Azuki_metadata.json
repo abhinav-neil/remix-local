@@ -488,7 +488,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/NFTa.sol": "NFT"
+			"contracts/NFTa.sol": "Azuki"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -575,10 +575,10 @@
 			]
 		},
 		"contracts/NFTa.sol": {
-			"keccak256": "0x321e418c2375959b68045f9a1812a3dfbe853649ca1fe94e35c59d15cf759e2a",
+			"keccak256": "0x1012b10a1d1a29f3d21cb1060a55d2cd376451a63f6be5e8bd960b9cd33a9234",
 			"urls": [
-				"bzz-raw://288816ac18c0da63f150e083280d2c2ce2f7da4ca3f2f6469aaf566cf75489d6",
-				"dweb:/ipfs/QmcRDRPwGeqCvCb62sHcASbCS4KHyenGTxzeiVyMpPRHG1"
+				"bzz-raw://7f766aa22b1c730015afcbc33f517f91404ef97f2193aa4b543548c4b6c8fb84",
+				"dweb:/ipfs/QmbmveqaaXviajPFv8ZnNvWgPAcfWSn1HadL5sLJb3bBon"
 			]
 		},
 		"erc721a/contracts/ERC721A.sol": {

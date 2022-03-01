@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.11+commit.d7f03943"
+		"version": "0.8.12+commit.f00d7308"
 	},
 	"language": "Solidity",
 	"output": {
@@ -437,7 +437,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/SlutRoyaltiesWallet.sol": "RoyaltiesWallet"
+			"contracts/RoyaltiesWallet.sol": "RoyaltiesWallet"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -499,7 +499,7 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
-		"contracts/SlutRoyaltiesWallet.sol": {
+		"contracts/RoyaltiesWallet.sol": {
 			"keccak256": "0x35b6ae0c4114975ce80c13b89bab0e36a6995d5a957fa4ecdcdafd31263db3d5",
 			"license": "MIT",
 			"urls": [
