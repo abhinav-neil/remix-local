@@ -323,6 +323,24 @@
 			{
 				"inputs": [
 					{
+						"internalType": "address[]",
+						"name": "_recipients",
+						"type": "address[]"
+					},
+					{
+						"internalType": "uint8[]",
+						"name": "_alllowances",
+						"type": "uint8[]"
+					}
+				],
+				"name": "batchGift",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
 						"internalType": "address",
 						"name": "_account",
 						"type": "address"
@@ -1073,11 +1091,11 @@
 			]
 		},
 		"contracts/MotionMfers.sol": {
-			"keccak256": "0xa727ab298c1fff94242f434c1a712f8e86b5434b6aa6531f9533258de1dc4a12",
+			"keccak256": "0x99013c65bb1d2f8d3ccff86d859de19b5e404484bba1a53d5c60b0317497d0c6",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://67d673ac4c9391aadb1de4364510fd8c0f5d14ec32f9f65541a29689da954dea",
-				"dweb:/ipfs/QmVEVsqp1i7zvcv4m1feTtJDRA13kVVcVQdXj9NteccvTi"
+				"bzz-raw://4ea5dc3b956a817b42a9a70dac58097b0abbecca24b47cbe914961b88cdcbd94",
+				"dweb:/ipfs/QmP4x641wtziqxNVjrJNBT2RageZq5NNetM2ucK7WcC27C"
 			]
 		},
 		"erc721a/contracts/ERC721A.sol": {

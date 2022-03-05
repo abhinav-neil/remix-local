@@ -13,6 +13,9 @@ contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
   string public baseExtension;
   uint public price = 0.0169 ether;
   uint public maxSupply = 4200;
+  uint private _reserved = 69;
+  uint private _publicSupply;
+  uint private _reserveSupply;
   bool public saleIsActive;
 
   constructor(address[] memory _payees, uint[] memory _shares) 
@@ -22,9 +25,22 @@ contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
   function mint(uint _mintAmount) public payable {
     require(saleIsActive, "Sale is not active");
     require(_mintAmount > 0, "You must mint at least 1 NFT");
-    require(totalSupply() + _mintAmount <= maxSupply, "Not enough supply");
+    require(_publicSupply + _mintAmount <= maxSupply - _reserved, "Not enough supply");
     require(msg.value >= price * _mintAmount, "Please send the correct amount of ETH");
+    _publicSupply += _mintAmount;
     _safeMint(msg.sender, _mintAmount);
+  }
+
+  // change to owner mint?
+  function batchGift(address[] calldata _recipients, uint8[] calldata _alllowances) public onlyOwner {
+    for (uint i = 0; i < _recipients.length; i++) {
+        uint _mintAmount = _alllowances[i];
+        require(_reserveSupply + _mintAmount <= _reserved, "Max reserve supply exceeded");
+        for (uint j = 0; j < _mintAmount; ++j) {
+            _safeMint(_recipients[i], _mintAmount);
+        }
+        _reserveSupply += _mintAmount;
+    }
   }
 
   function tokenURI(uint tokenId) public view virtual override returns (string memory) {
