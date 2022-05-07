@@ -1,6 +1,6 @@
 {
 	"compiler": {
-		"version": "0.8.12+commit.f00d7308"
+		"version": "0.8.13+commit.abaa5c0e"
 	},
 	"language": "Solidity",
 	"output": {
@@ -9,71 +9,6 @@
 				"inputs": [],
 				"stateMutability": "nonpayable",
 				"type": "constructor"
-			},
-			{
-				"inputs": [],
-				"name": "ApprovalCallerNotOwnerNorApproved",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ApprovalQueryForNonexistentToken",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ApprovalToCurrentOwner",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "ApproveToCaller",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "BalanceQueryForZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "MintToZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "MintZeroQuantity",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "OwnerQueryForNonexistentToken",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "TransferCallerNotOwnerNorApproved",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "TransferFromIncorrectOwner",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "TransferToNonERC721ReceiverImplementer",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "TransferToZeroAddress",
-				"type": "error"
-			},
-			{
-				"inputs": [],
-				"name": "URIQueryForNonexistentToken",
-				"type": "error"
 			},
 			{
 				"anonymous": false,
@@ -123,6 +58,25 @@
 					}
 				],
 				"name": "ApprovalForAll",
+				"type": "event"
+			},
+			{
+				"anonymous": false,
+				"inputs": [
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "previousOwner",
+						"type": "address"
+					},
+					{
+						"indexed": true,
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "OwnershipTransferred",
 				"type": "event"
 			},
 			{
@@ -188,6 +142,32 @@
 				"type": "function"
 			},
 			{
+				"inputs": [],
+				"name": "baseExtension",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "baseURI",
+				"outputs": [
+					{
+						"internalType": "string",
+						"name": "",
+						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
 				"inputs": [
 					{
 						"internalType": "uint256",
@@ -204,6 +184,19 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address[]",
+						"name": "_recipients",
+						"type": "address[]"
+					}
+				],
+				"name": "giftPass",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -231,16 +224,29 @@
 				"type": "function"
 			},
 			{
-				"inputs": [
+				"inputs": [],
+				"name": "maxSupply",
+				"outputs": [
 					{
 						"internalType": "uint256",
-						"name": "quantity",
+						"name": "",
 						"type": "uint256"
 					}
 				],
-				"name": "mint",
-				"outputs": [],
-				"stateMutability": "payable",
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "maxTokensPerAddress",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
 				"type": "function"
 			},
 			{
@@ -251,6 +257,19 @@
 						"internalType": "string",
 						"name": "",
 						"type": "string"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "owner",
+				"outputs": [
+					{
+						"internalType": "address",
+						"name": "",
+						"type": "address"
 					}
 				],
 				"stateMutability": "view",
@@ -273,6 +292,13 @@
 					}
 				],
 				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "renounceOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
 				"type": "function"
 			},
 			{
@@ -340,6 +366,24 @@
 					}
 				],
 				"name": "setApprovalForAll",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "string",
+						"name": "_baseURI",
+						"type": "string"
+					},
+					{
+						"internalType": "string",
+						"name": "_baseExtension",
+						"type": "string"
+					}
+				],
+				"name": "setBaseURI",
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
@@ -430,6 +474,19 @@
 				"outputs": [],
 				"stateMutability": "nonpayable",
 				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "newOwner",
+						"type": "address"
+					}
+				],
+				"name": "transferOwnership",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
 			}
 		],
 		"devdoc": {
@@ -450,8 +507,14 @@
 				"name()": {
 					"details": "See {IERC721Metadata-name}."
 				},
+				"owner()": {
+					"details": "Returns the address of the current owner."
+				},
 				"ownerOf(uint256)": {
 					"details": "See {IERC721-ownerOf}."
+				},
+				"renounceOwnership()": {
+					"details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
 				},
 				"safeTransferFrom(address,address,uint256)": {
 					"details": "See {IERC721-safeTransferFrom}."
@@ -471,11 +534,11 @@
 				"tokenURI(uint256)": {
 					"details": "See {IERC721Metadata-tokenURI}."
 				},
-				"totalSupply()": {
-					"details": "See {IERC721Enumerable-totalSupply}.Burned tokens are calculated here, use _totalMinted() if you want to count just minted tokens."
-				},
 				"transferFrom(address,address,uint256)": {
 					"details": "See {IERC721-transferFrom}."
+				},
+				"transferOwnership(address)": {
+					"details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
 				}
 			},
 			"version": 1
@@ -488,7 +551,7 @@
 	},
 	"settings": {
 		"compilationTarget": {
-			"contracts/NFTa.sol": "NFT"
+			"contracts/DegenPass.sol": "NFT"
 		},
 		"evmVersion": "london",
 		"libraries": {},
@@ -502,6 +565,22 @@
 		"remappings": []
 	},
 	"sources": {
+		"@openzeppelin/contracts/access/Ownable.sol": {
+			"keccak256": "0x24e0364e503a9bbde94c715d26573a76f14cd2a202d45f96f52134ab806b67b9",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://e12cbaa7378fd9b62280e4e1d164bedcb4399ce238f5f98fc0eefb7e50577981",
+				"dweb:/ipfs/QmXRoFGUgfsaRkoPT5bxNMtSayKTQ8GZATLPXf69HcRA51"
+			]
+		},
+		"@openzeppelin/contracts/token/ERC721/ERC721.sol": {
+			"keccak256": "0x11b84bb56dc112a6590bfe3e0efa118aa1b5891132342200d04c4ef544cb93de",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://cbc4803332d45dff58f865ed21c942fe4668e47cc7196c8dfe84102040b1d70f",
+				"dweb:/ipfs/QmXhZLsocznRWCSyhjo3vo66Z1VsuuNptAVb6ASPYsWtGx"
+			]
+		},
 		"@openzeppelin/contracts/token/ERC721/IERC721.sol": {
 			"keccak256": "0x516a22876c1fab47f49b1bc22b4614491cd05338af8bd2e7b382da090a079990",
 			"license": "MIT",
@@ -516,14 +595,6 @@
 			"urls": [
 				"bzz-raw://33017a30a99cc5411a9e376622c31fc4a55cfc6a335e2f57f00cbf24a817ff3f",
 				"dweb:/ipfs/QmWNQtWTPhA7Lo8nbxbc8KFMvZwbFYB8fSeEQ3vuapSV4a"
-			]
-		},
-		"@openzeppelin/contracts/token/ERC721/extensions/IERC721Enumerable.sol": {
-			"keccak256": "0xd1556954440b31c97a142c6ba07d5cade45f96fafd52091d33a14ebe365aecbf",
-			"license": "MIT",
-			"urls": [
-				"bzz-raw://26fef835622b46a5ba08b3ef6b46a22e94b5f285d0f0fb66b703bd30217d2c34",
-				"dweb:/ipfs/QmZ548qdwfL1qF7aXz3xh1GCdTiST81kGGuKRqVUfYmPZR"
 			]
 		},
 		"@openzeppelin/contracts/token/ERC721/extensions/IERC721Metadata.sol": {
@@ -550,6 +621,14 @@
 				"dweb:/ipfs/QmRK2Y5Yc6BK7tGKkgsgn3aJEQGi5aakeSPZvS65PV8Xp3"
 			]
 		},
+		"@openzeppelin/contracts/utils/Counters.sol": {
+			"keccak256": "0xf0018c2440fbe238dd3a8732fa8e17a0f9dce84d31451dc8a32f6d62b349c9f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://59e1c62884d55b70f3ae5432b44bb3166ad71ae3acd19c57ab6ddc3c87c325ee",
+				"dweb:/ipfs/QmezuXg5GK5oeA4F91EZhozBFekhq5TD966bHPH18cCqhu"
+			]
+		},
 		"@openzeppelin/contracts/utils/Strings.sol": {
 			"keccak256": "0x32c202bd28995dd20c4347b7c6467a6d3241c74c8ad3edcbb610cd9205916c45",
 			"license": "MIT",
@@ -574,19 +653,12 @@
 				"dweb:/ipfs/QmP7C3CHdY9urF4dEMb9wmsp1wMxHF6nhA2yQE5SKiPAdy"
 			]
 		},
-		"contracts/NFTa.sol": {
-			"keccak256": "0x321e418c2375959b68045f9a1812a3dfbe853649ca1fe94e35c59d15cf759e2a",
-			"urls": [
-				"bzz-raw://288816ac18c0da63f150e083280d2c2ce2f7da4ca3f2f6469aaf566cf75489d6",
-				"dweb:/ipfs/QmcRDRPwGeqCvCb62sHcASbCS4KHyenGTxzeiVyMpPRHG1"
-			]
-		},
-		"erc721a/contracts/ERC721A.sol": {
-			"keccak256": "0x5a3f70f309452b24ff4268be3c57c88f2c9aa7b8711b4951f0521fd0488b7b51",
+		"contracts/DegenPass.sol": {
+			"keccak256": "0x7afcb6ba15b43fb4f7d6752ea91ff2ce71007c768a6ea5960966b5f46b2a037c",
 			"license": "MIT",
 			"urls": [
-				"bzz-raw://e2b72bf6e6556d459e5887094a2eeff26aa83d1031092f056a93ea746e02bcd0",
-				"dweb:/ipfs/QmS9FvFwmUJvzsQqBUHQ7xFyXkoJwMtRcVmPmBMQn3QnVK"
+				"bzz-raw://a83631f8f0c75c9b344684844abaa3f4926dc146dcfe413d6716eb9d28186510",
+				"dweb:/ipfs/QmU9Ne9cchC54eSN4ckgEyr48BP6fLkqhm4NWEt1XYqPRT"
 			]
 		}
 	},
