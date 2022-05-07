@@ -6,7 +6,7 @@ import "erc721a/contracts/ERC721A.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
+contract MferVibes is ERC721A, Ownable, PaymentSplitter {
   using Strings for uint;
 
   string public baseURI;      //make private before mainnet launch?
@@ -19,8 +19,12 @@ contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
   bool public saleIsActive;
 
   constructor(address[] memory _payees, uint[] memory _shares) 
-  ERC721A("Motion mfers", "mmfers")
+  ERC721A("Mfer vibes", "M'vibes")
   PaymentSplitter(_payees, _shares) {}
+
+  function _baseURI() internal view virtual override returns (string memory) {
+    return baseURI;
+  }
 
   function mint(uint _mintAmount) public payable {
     require(saleIsActive, "Sale is not active");
@@ -31,7 +35,6 @@ contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
     _safeMint(msg.sender, _mintAmount);
   }
 
-  // change to owner mint?
   function batchGift(address[] calldata _recipients, uint8[] calldata _alllowances) public onlyOwner {
     for (uint i = 0; i < _recipients.length; i++) {
         uint _mintAmount = _alllowances[i];
@@ -46,11 +49,11 @@ contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
   function tokenURI(uint tokenId) public view virtual override returns (string memory) {
     require(_exists(tokenId), "ERC721Metadata: URI query for nonexistent token");
     return bytes(baseURI).length > 0
-        ? string(abi.encodePacked(baseURI, tokenId.toString(), baseExtension)): "";
+        ? string(abi.encodePacked(_baseURI(), tokenId.toString(), baseExtension)): "";
   }
 
-  function setBaseURI(string memory _baseURI, string memory _baseExtension) public onlyOwner {
-    baseURI = _baseURI;
+  function setBaseURI(string memory baseURI_, string memory _baseExtension) public onlyOwner {
+    baseURI = baseURI_;
     baseExtension = _baseExtension;
   }
 
@@ -63,7 +66,6 @@ contract MotionMfers is ERC721A, Ownable, PaymentSplitter {
   }
 
 // Payment splitter
-
   function etherBalanceOf(address _account) public view returns (uint256) {
         return
             ((address(this).balance + totalReleased()) * shares(_account)) /
