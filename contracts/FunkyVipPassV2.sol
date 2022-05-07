@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 
-pragma solidity ^0.8.11;
+pragma solidity ^0.8.13;
 
-import "@openzeppelin/contracts/token/ERC721/ERC721.sol";
+import "@openzeppelin/contracts/token/ERC721/extensions/ERC721Enumerable.sol";
 import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/utils/Counters.sol";
 import "@openzeppelin/contracts/finance/PaymentSplitter.sol";
 
-contract FunkyVipPass is ERC721, Ownable, PaymentSplitter {
+contract FunkyVipPassV2 is ERC721Enumerable, Ownable, PaymentSplitter {
   using Strings for uint;
   using Counters for Counters.Counter;
 
@@ -20,7 +20,6 @@ contract FunkyVipPass is ERC721, Ownable, PaymentSplitter {
   uint public publicSupply;
   uint public reserveSupply;
   Counters.Counter private _tokenId;
-  // mapping(uint=>bool) private _isRedeemed;
 
   constructor(address[] memory _payees, uint[] memory _shares) 
   ERC721("Funky Vip Pass", "FVS")
